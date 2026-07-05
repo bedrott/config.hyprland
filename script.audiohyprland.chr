@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+echo "===================================================="
+echo "   CONFIGURADOR DE ÁUDIO AUTOMÁTICO - CHROMEBOOK     "
+echo "===================================================="
+
+# 1. Instalar dependências necessárias
+echo "--> Instalandos pacotes essenciais via pacman..."
+sudo pacman -S --needed --noconfirm git sof-firmware alsa-firmware alsa-utils alsa-plugins alsa-ucm-conf
+
+# 2. Criar configuração para evitar suspensão de áudio no WirePlumber
+echo "--> Configurando persistência do WirePlumber..."
+sudo mkdir -p /etc/wireplumber/wireplumber.conf.d/
+sudo tee /etc/wireplumber/wireplumber.conf.d/51-disable-suspend.conf > /dev/null << 'EOF'
+monitor.alsa.rules = [
+  {
+    matches = [
+      { node.name = "~alsa_output.*" }
+    ]
+    actions = {
+      update-props = {
+        session.suspend-timeout-seconds = 0
+      }
+    }
+  }
+]
+EOF
+
+# 3. Baixar e executar o script de topologia da comunidade
+echo "--> Baixando topologias oficiais do Chromebook..."
+rm -rf /tmp/chromebook-linux-audio
+git clone --depth 1 https://github.com /tmp/chromebook-linux-audio
+cd /tmp/chromebook-linux-audio || exit
+
+echo "--> Executando instalador de áudio..."
+sudo ./setup-audio
+
+# 4. Forçar desbloqueio de canais mutados no ALSA para evitar o estado 'MM'
+echo "--> Ajustando volumes de hardware no ALSA..."
+sudo amixer -c 0 set Master unmute 100% 2>/dev/null
+sudo amixer -c 0 set Speaker unmute 100% 2>/dev/null
+sudo amixer -c 0 set DAC unmute 100% 2>/dev/null
+sudo amixer -c 0 set Headphone unmute 100% 2>/dev/null
+sudo alsactl store
+
+echo "===================================================="
+echo "   PROCESSO CONCLUÍDO COM SUCESSO!                  "
+echo "   O Chromebook precisa ser reiniciado agora.       "
+echo "===================================================="
+
+read -p "Deseja reiniciar o sistema agora? (s/N): " resposta
+if [[ "$resposta" =~ ^[Ss]$ ]]; then
+    sudo reboot
+fi
