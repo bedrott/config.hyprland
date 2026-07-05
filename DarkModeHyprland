@@ -1,0 +1,21 @@
+primeiro coloque esse comando, ele ja vai setar o navegador pro tema escuro:
+
+gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+
+segundo instale esse programa:
+
+sudo pacman -S nwg-look
+
+e dps execute ele:
+
+nwg-look
+
+e aplique prefer dark
+
+instale isso:
+
+sudo pacman -S qt5ct qt6ct kvantum
+
+O Hyprland é um gerenciador de janelas e não um ambiente de desktop completo, então ele não possui um painel de controle nativo. Para deixar o sistema todo escuro, você precisa configurar os temas baseados nas bibliotecas que os programas usam (GTK e Qt) através do terminal e gerenciadores de temas.1. Programas GTK (Arquivos, Configurações do Gnome, etc.)Esses programas leem o gsettings. Você pode configurar todos os aplicativos GTK para o modo escuro executando o seguinte comando no terminal:bashgsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+Use o código com cuidado.Para garantir que o tema visual também fique escuro (como o tema Adwaita-dark), você pode usar um utilitário visual simples e muito recomendado pela ArchWiki:Instale o utilitário rodando: sudo pacman -S nwg-lookAbra-o chamando nwg-look no terminal e selecione um tema escuro (como o Adwaita-dark) para aplicar em todo o sistema.2. Programas Qt (Dolphin, VLC, qBittorrent, etc.)Programas que utilizam o Qt precisam de um gerenciador para exportar o tema escuro corretamente.Instale os gerenciadores rodando: sudo pacman -S qt5ct qt6ct kvantumAbra o qt5ct ou qt6ct e defina o tema (como Adwaita-Dark).Para aplicar variáveis do QT no Hyprland, adicione a seguinte linha no seu arquivo ~/.config/hypr/hyprland.conf:env = QT_QPA_PLATFORMTHEME,qt6ct3. Navegadores e Apps Electron (VS Code, Discord, Chrome)Navegadores: A maioria segue a preferência do sistema, mas para garantir uma navegação 100% escura, você pode instalar a extensão Dark Reader no Firefox ou Chrome.Electron (VS Code, Discord, etc.): Eles geralmente leem o modo escuro se os portais estiverem ativos.4. XDG Desktop PortalsPara que os programas abram diálogos nativos e apliquem as preferências corretamente, certifique-se de que os portais estão instalados e ativos. Você pode instalá-los rodando:bashsudo pacman -S xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
+
