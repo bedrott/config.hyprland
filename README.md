@@ -1,0 +1,1 @@
+#configs pra hyprland.
