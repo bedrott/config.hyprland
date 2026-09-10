@@ -1,16 +1,13 @@
-primeiro rode esse comando, ele ja vai setar o navegador pro tema escuro:
+gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 
-gsettings set org.gnome.desktop.interface color-scheme "prefer-dark" 
-
-segundo instale esse programa:
+install this program:
 
 sudo pacman -S nwg-look
 
-e dps execute ele:
+and execute him:
 
 nwg-look
 
-e aplique prefer dark.
+and set "prefer-dark".
 
-pronto! seu ambiente hyprland ja esta no modo dark :)
-
+done! now your setup is set in the Dark Mode :)
