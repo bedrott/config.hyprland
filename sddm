@@ -1,9 +1,0 @@
-primeiro baixe o sddm:
-
-sudo pacman -S sddm
-
-e depois ative ele:
-
-sudo systemctl enable sddm.service
-
-pronto :)
