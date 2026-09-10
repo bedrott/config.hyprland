@@ -26,7 +26,6 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("noctalia")
 end)
 
-
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
@@ -71,8 +70,8 @@ hl.config({
         rounding_power = 0,
 
         -- Change transparency of focused and unfocused windows
-        active_opacity   = 0.95,
-        inactive_opacity = 0.9,
+        active_opacity   = 1,
+        inactive_opacity = 1,
 
         shadow = {
             enabled      = true,
@@ -224,7 +223,7 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) 
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 
 -- Move focus with mainMod + arrow keys
